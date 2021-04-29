@@ -5,9 +5,9 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 /**
- * desc: wanandroid.com 的开放 API 基于 Cookie 返回登陆信息，每次调用接口都需要带上登录时返回的 Cookie 信息
+ *  wanandroid.com 的开放 API 基于 Cookie 返回登陆信息，每次调用接口都需要带上登录时返回的 Cookie 信息
  *
- * Created by kumu@2dfire.com on 2021/4/27.
+ * Created by  chiclaim@google.com
  */
 class CookieInterceptor : Interceptor {
 

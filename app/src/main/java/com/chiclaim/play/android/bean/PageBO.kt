@@ -5,7 +5,7 @@ package com.chiclaim.play.android.bean
  *
  * Created by kumu@2dfire.com
  */
-class PageDO<T> {
+class PageBO<T> {
 
     val curPage = 0
     val datas: List<T>? = null

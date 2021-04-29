@@ -7,7 +7,7 @@ package com.chiclaim.play.android.bean
  *
  * Created by kumu@2dfire.com
  */
-class ArticleDO {
+class ArticleBO {
 
     val id = 0
     val title: String? = null

@@ -11,11 +11,16 @@ android {
 dependencies {
 
     // androidx
-    implementation rootProject.ext.dependencies.kotlinStdlib
-    implementation rootProject.ext.dependencies.coreKtx
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.googleMaterial
     implementation rootProject.ext.dependencies.constraintlayout
+
+    // kotlin
+    implementation rootProject.ext.dependencies.kotlinStdlib
+    implementation rootProject.ext.dependencies.coreKtx
+    implementation rootProject.ext.dependencies.coroutinesCore
+    implementation rootProject.ext.dependencies.coroutinesAndroid
+
 
     // network
     implementation rootProject.ext.dependencies.retrofit
@@ -24,6 +29,7 @@ dependencies {
 
     // store
     implementation rootProject.ext.dependencies.mmkv
+
 
     // test
     testImplementation rootProject.ext.dependencies.junit

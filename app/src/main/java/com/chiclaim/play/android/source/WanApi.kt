@@ -1,14 +1,15 @@
 package com.chiclaim.play.android.source
 
-import com.chiclaim.play.android.bean.ArticleDO
-import com.chiclaim.play.android.bean.PageDO
-import com.chiclaim.play.android.bean.RespDO
-import com.chiclaim.play.android.bean.UserDO
+import androidx.lifecycle.LiveData
+import com.chiclaim.play.android.bean.ArticleBO
+import com.chiclaim.play.android.bean.PageBO
+import com.chiclaim.play.android.bean.RespBO
+import com.chiclaim.play.android.bean.UserBO
 import retrofit2.Call
 import retrofit2.http.*
 
 /**
- * desc:
+ *
  *
  * Created by kumu@2dfire.com
  */
@@ -22,7 +23,7 @@ interface WanApi {
     @FormUrlEncoded
     fun login(
         @Field("username") username: String,
-        @Field("password") password: String): Call<RespDO<UserDO>>
+        @Field("password") password: String): LiveData<RespBO<UserBO>>
 
 
     /**
@@ -31,7 +32,7 @@ interface WanApi {
      */
     @GET("/article/list/{pageIndex}/json")
     fun getArticleList(
-        @Path("pageIndex") pageIndex: Int): Call<RespDO<PageDO<ArticleDO>>>
+        @Path("pageIndex") pageIndex: Int): Call<RespBO<PageBO<ArticleBO>>>
 
 
 }

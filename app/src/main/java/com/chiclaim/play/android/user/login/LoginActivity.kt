@@ -1,17 +1,17 @@
-package com.chiclaim.play.android.login
+package com.chiclaim.play.android.user.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.chiclaim.play.android.MainActivity
 import com.chiclaim.play.android.R
 import com.chiclaim.play.android.base.BaseActivity
-import com.chiclaim.play.android.bean.ArticleDO
-import com.chiclaim.play.android.bean.PageDO
-import com.chiclaim.play.android.bean.RespDO
-import com.chiclaim.play.android.bean.UserDO
+import com.chiclaim.play.android.bean.ArticleBO
+import com.chiclaim.play.android.bean.PageBO
+import com.chiclaim.play.android.bean.RespBO
 import com.chiclaim.play.android.source.Api
 import com.chiclaim.play.android.source.WanApi
 import retrofit2.Call
@@ -24,6 +24,7 @@ import retrofit2.Response
  */
 class LoginActivity : BaseActivity() {
 
+    private lateinit var loginViewModel: LoginViewModel
 
     private lateinit var editUsername: EditText
     private lateinit var editPassword: EditText
@@ -39,40 +40,34 @@ class LoginActivity : BaseActivity() {
         editPassword = findViewById(R.id.edit_password)
 
 
+        loginViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(LoginViewModel::class.java)
+
+
         findViewById<Button>(R.id.btn_login).setOnClickListener {
-            wanApi.login(editUsername.text.toString(), editPassword.text.toString()).enqueue(
-                object : retrofit2.Callback<RespDO<UserDO>> {
-                    override fun onResponse(
-                        call: Call<RespDO<UserDO>>,
-                        response: Response<RespDO<UserDO>>
-                    ) {
-                        val resp = response.body()
-                        if (resp?.isSuccess() == true) {
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                        } else {
-                            Toast.makeText(
-                                this@LoginActivity,
-                                resp?.errorMsg,
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                        }
-                    }
-
-                    override fun onFailure(call: Call<RespDO<UserDO>>, t: Throwable) {
-                        t.printStackTrace()
+            loginViewModel.getLoginLiveData(
+                editUsername.text.toString(),
+                editPassword.text.toString()
+            )
+                .observe(this) {
+                    if (it.isSuccess()) {
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    } else {
+                        Toast.makeText(this, "${it.errorMsg}", Toast.LENGTH_SHORT).show()
                     }
                 }
-            )
+
         }
 
 
         findViewById<Button>(R.id.btn_test).setOnClickListener {
             wanApi.getArticleList(0).enqueue(
-                object : retrofit2.Callback<RespDO<PageDO<ArticleDO>>> {
+                object : retrofit2.Callback<RespBO<PageBO<ArticleBO>>> {
                     override fun onResponse(
-                        call: Call<RespDO<PageDO<ArticleDO>>>,
-                        response: Response<RespDO<PageDO<ArticleDO>>>
+                        call: Call<RespBO<PageBO<ArticleBO>>>,
+                        response: Response<RespBO<PageBO<ArticleBO>>>
                     ) {
                         val resp = response.body()
                         if (resp?.isSuccess() == true) {
@@ -87,7 +82,7 @@ class LoginActivity : BaseActivity() {
                         }
                     }
 
-                    override fun onFailure(call: Call<RespDO<PageDO<ArticleDO>>>, t: Throwable) {
+                    override fun onFailure(call: Call<RespBO<PageBO<ArticleBO>>>, t: Throwable) {
                         t.printStackTrace()
                     }
                 }

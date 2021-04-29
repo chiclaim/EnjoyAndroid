@@ -5,9 +5,9 @@ import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 
 /**
- * desc: 轻量级本地存储（如 SharedPreference），由于 SharedPreference 问题比较多，本项目采用 Tencent MMKV
+ *  轻量级本地存储（如 SharedPreference），由于 SharedPreference 问题比较多，本项目采用 Tencent MMKV
  *
- * Created by kumu@2dfire.com on 2021/4/27.
+ * Created by  chiclaim@google.com
  */
 object LightStore {
 

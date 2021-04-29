@@ -3,12 +3,12 @@ package com.chiclaim.play.android
 import android.content.Intent
 import android.os.Bundle
 import com.chiclaim.play.android.base.BaseActivity
-import com.chiclaim.play.android.login.LoginActivity
+import com.chiclaim.play.android.user.login.LoginActivity
 
 /**
- * desc:
+ * 闪屏页面
  *
- * Created by kumu@2dfire.com on 2021/4/26.
+ * Created by  chiclaim@google.com
  */
 class SplashActivity : BaseActivity() {
 

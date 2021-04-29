@@ -5,9 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * desc:
- *
- * Created by kumu@2dfire.com on 2021/4/26.
+ * Created by chiclaim@google.com
  */
 object Api {
 
@@ -18,6 +16,7 @@ object Api {
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://www.wanandroid.com")
         .client(client)
+        .addCallAdapterFactory(LiveDataCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
