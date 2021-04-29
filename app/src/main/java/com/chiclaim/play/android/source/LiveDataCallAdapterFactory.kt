@@ -1,5 +1,6 @@
 package com.chiclaim.play.android.source
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
@@ -11,6 +12,8 @@ class LiveDataCallAdapterFactory : CallAdapter.Factory() {
 
     override fun get(returnType: Type, annotations: Array<out Annotation>?, retrofit: Retrofit?): CallAdapter<*, *>? {
 
+        //androidx.lifecycle.LiveData<com.chiclaim.play.android.bean.RespBO<com.chiclaim.play.android.bean.UserBO>>
+        //Log.e("LiveDataAdapterFactory",returnType.typeName)
 
         if (getRawType(returnType) != LiveData::class.java) {
             return null
@@ -22,6 +25,9 @@ class LiveDataCallAdapterFactory : CallAdapter.Factory() {
 
 
         val type = getParameterUpperBound(0, returnType)
+
+        //com.chiclaim.play.android.bean.RespBO<com.chiclaim.play.android.bean.UserBO>
+        //Log.e("LiveDataAdapterFactory",type.typeName)
 
         return LiveDataCallAdapter<Any>(type)
     }

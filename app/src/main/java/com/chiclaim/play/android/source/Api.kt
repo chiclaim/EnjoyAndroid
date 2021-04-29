@@ -16,7 +16,7 @@ object Api {
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://www.wanandroid.com")
         .client(client)
-        .addCallAdapterFactory(LiveDataCallAdapterFactory())
+        .addCallAdapterFactory(LiveDataCallAdapterFactory2())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
