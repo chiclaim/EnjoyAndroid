@@ -3,4 +3,11 @@
     <string name="hint_login_username">请输入用户名</string>
     <string name="btn_login">登录</string>
     <string name="hint_password">请输入密码</string>
+
+
+    <string name="net_err_timeout">网络访问超时</string>
+    <string name="net_err_connect">网络连接异常</string>
+    <string name="net_err_parse">数据解析异常</string>
+
+
 </resources>

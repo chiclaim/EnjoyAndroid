@@ -55,7 +55,7 @@ class LoginActivity : BaseActivity() {
                     if (it.isSuccess()) {
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     } else {
-                        Toast.makeText(this, "${it.errorMsg}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, it.getErrCodeMsg(), Toast.LENGTH_SHORT).show()
                     }
                 }
 

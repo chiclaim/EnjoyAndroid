@@ -24,13 +24,11 @@ class RespBO<T>(
     companion object {
         const val CODE_INVALID_LOGIN = -1001
 
-        fun <T> create(data: T?): RespBO<T> {
-            return RespBO(data = data)
-        }
-
-        fun <T> create(throwable: Throwable?): RespBO<T> {
+        fun <T> create(throwable: Throwable): RespBO<T> {
+            val e = throwable.toApiException()
             return RespBO(
-                errorMsg = throwable?.toApiException()?.message,
+                errorCode = e.errorCode,
+                errorMsg = e.message,
                 data = null
             )
         }
@@ -40,4 +38,9 @@ class RespBO<T>(
      * 接口是否请求成功
      */
     fun isSuccess() = errorCode == 0
+
+    /**
+     * 获取错误码和错误信息
+     */
+    fun getErrCodeMsg() = "[$errorCode] $errorMsg"
 }
