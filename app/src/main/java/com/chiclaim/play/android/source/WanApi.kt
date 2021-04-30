@@ -17,13 +17,15 @@ interface WanApi {
 
 
     /**
-     * 登录
+     * 登录接口
+     * @param username 用户名
+     * @param password 密码
      */
     @POST("/user/login")
     @FormUrlEncoded
     fun login(
         @Field("username") username: String,
-        @Field("password") password: String): LiveData<RespBO<UserBO>>
+        @Field("password") password: String): LiveData<RespBO<UserBO>> // 搭配 LiveData
 
 
     /**
@@ -32,6 +34,15 @@ interface WanApi {
      */
     @GET("/article/list/{pageIndex}/json")
     fun getArticleList(
+        @Path("pageIndex") pageIndex: Int): Call<RespBO<PageBO<ArticleBO>>>
+
+
+    /**
+     * 获取收藏的文章列表
+     * @param pageIndex 从 0 开始
+     */
+    @GET("lg/collect/list/{pageIndex}/json")
+    fun getCollectedArticleList(
         @Path("pageIndex") pageIndex: Int): Call<RespBO<PageBO<ArticleBO>>>
 
 

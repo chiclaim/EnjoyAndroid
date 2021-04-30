@@ -19,6 +19,8 @@ class ApiException(val errorCode: Int, errorMsg: String) : Exception(errorMsg)
 
 /**
  * 将底层的异常转换成上层能够识别的自定义异常
+ *
+ * @author chiclaim@google.com
  */
 fun Throwable.toApiException(): ApiException {
     if (this is ApiException) return this
