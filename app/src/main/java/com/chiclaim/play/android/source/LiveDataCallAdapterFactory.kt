@@ -1,63 +1,73 @@
 package com.chiclaim.play.android.source
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import retrofit2.CallAdapter
-import retrofit2.Retrofit
+import com.chiclaim.play.android.bean.RespBO
+import retrofit2.*
+import retrofit2.CallAdapter.Factory
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.util.concurrent.atomic.AtomicBoolean
 
-class LiveDataCallAdapterFactory : CallAdapter.Factory() {
+/**
+ * 自定义 CallAdapter，整合 Retrofit 和 LiveData
+ * @author chiclaim@google.com
+ */
+class LiveDataCallAdapterFactory : Factory() {
 
-    override fun get(returnType: Type, annotations: Array<out Annotation>?, retrofit: Retrofit?): CallAdapter<*, *>? {
+    override fun get(
+        returnType: Type,
+        annotations: Array<Annotation>,
+        retrofit: Retrofit
+    ): CallAdapter<*, *>? {
 
-        //androidx.lifecycle.LiveData<com.chiclaim.play.android.bean.RespBO<com.chiclaim.play.android.bean.UserBO>>
-        //Log.e("LiveDataAdapterFactory",returnType.typeName)
+        // LiveData<RespBO<UserBO>> as example
 
         if (getRawType(returnType) != LiveData::class.java) {
             return null
         }
+        val observableType = getParameterUpperBound(0, returnType as ParameterizedType)
+        // Log.e("LiveDataAdapterFactory", observableType.typeName) //RespBO<UserBO>
 
-        check(returnType is ParameterizedType) {
-             "LiveData must have generic type (e.g., LiveData<ResponseBody>)"
+        val rawObservableType = getRawType(observableType)
+
+        check(rawObservableType == RespBO::class.java) {
+            "LiveData's generic type must be RespBo, eg. LiveData<${RespBO::class.simpleName}<XXX>>"
         }
 
+        check(observableType is ParameterizedType) {
+            "LiveData must have generic type, eg. LiveData<${RespBO::class.simpleName}<XXX>>"
+        }
 
-        val type = getParameterUpperBound(0, returnType)
-
-        //com.chiclaim.play.android.bean.RespBO<com.chiclaim.play.android.bean.UserBO>
-        //Log.e("LiveDataAdapterFactory",type.typeName)
-
-        return LiveDataCallAdapter<Any>(type)
+        // val bodyType = getParameterUpperBound(0, observableType)
+        // Log.e("LiveDataAdapterFactory", bodyType.typeName) //UserBO
+        return LiveDataCallAdapter<RespBO<*>>(observableType)
     }
 
-    class LiveDataCallAdapter<R>(private var type: Type) : CallAdapter<R, LiveData<R>> {
-        override fun adapt(call: retrofit2.Call<R>): LiveData<R> {
-            return object : LiveData<R>() {
 
-                val flag = AtomicBoolean(false)
+    class LiveDataCallAdapter<R : RespBO<R>>(private val responseType: Type) :
+        CallAdapter<R, LiveData<RespBO<R>>> {
 
+        override fun responseType() = responseType
+
+        override fun adapt(call: Call<R>): LiveData<RespBO<R>> {
+            return object : LiveData<RespBO<R>>() {
+                private var started = AtomicBoolean(false)
                 override fun onActive() {
                     super.onActive()
-                    if (flag.compareAndSet(false, true)) {
-                        call.enqueue(object : retrofit2.Callback<R> {
-                            override fun onFailure(call: retrofit2.Call<R>?, t: Throwable?) {
-                                t?.printStackTrace()
-                                postValue(null)
+                    if (started.compareAndSet(false, true)) {
+                        call.enqueue(object : Callback<R> {
+                            override fun onResponse(call: Call<R>, response: Response<R>) {
+                                postValue(response.body())
                             }
 
-                            override fun onResponse(call: retrofit2.Call<R>?, response: retrofit2.Response<R>?) {
-                                postValue(response?.body())
+                            override fun onFailure(call: Call<R>, throwable: Throwable) {
+                                postValue(RespBO.create(throwable))
                             }
                         })
                     }
                 }
             }
         }
-
-        override fun responseType(): Type {
-            return type
-        }
     }
+
 }
