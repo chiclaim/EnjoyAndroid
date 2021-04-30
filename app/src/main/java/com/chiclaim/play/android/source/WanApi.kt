@@ -11,7 +11,7 @@ import retrofit2.http.*
 /**
  *
  *
- * Created by kumu@2dfire.com
+ * @author kumu@2dfire.com
  */
 interface WanApi {
 

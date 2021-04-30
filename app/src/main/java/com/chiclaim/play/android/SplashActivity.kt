@@ -9,7 +9,7 @@ import com.chiclaim.play.android.user.login.LoginActivity
 /**
  * 闪屏页面
  *
- * Created by  chiclaim@google.com
+ * @author chiclaim@google.com
  */
 class SplashActivity : BaseActivity() {
 

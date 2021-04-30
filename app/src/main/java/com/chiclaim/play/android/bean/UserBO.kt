@@ -5,7 +5,7 @@ package com.chiclaim.play.android.bean
  *
  * > 服务端返回的 JSON bean，作为原始数据，应设计成不可变，所以对应的属性均为 val
  *
- * Created by  chiclaim@google.com
+ * @author chiclaim@google.com
  *
  * @see RespBO
  */

@@ -8,7 +8,7 @@ import com.chiclaim.play.android.bean.request.LoginRO
 import com.chiclaim.play.android.repos.UserRepos
 
 /**
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
 class LoginViewModel : ViewModel() {
 

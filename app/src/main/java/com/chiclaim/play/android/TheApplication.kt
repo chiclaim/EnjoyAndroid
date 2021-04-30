@@ -5,7 +5,7 @@ import com.chiclaim.play.android.store.LightStore
 import com.chiclaim.play.android.utils.AppGlobal
 
 /**
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
 class TheApplication : Application() {
 

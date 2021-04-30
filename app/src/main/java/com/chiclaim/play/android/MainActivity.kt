@@ -7,7 +7,7 @@ import com.chiclaim.play.android.user.login.LoginViewModel
 /**
  * 主页面
  *
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
 class MainActivity : BaseActivity() {
 

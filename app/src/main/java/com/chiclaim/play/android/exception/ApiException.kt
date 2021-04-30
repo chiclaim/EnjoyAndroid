@@ -1,6 +1,6 @@
 package com.chiclaim.play.android.exception
 
-import com.chiclaim.play.android.NetError
+import com.chiclaim.play.android.utils.NetError
 import com.google.gson.JsonParseException
 import java.lang.Exception
 import java.net.ConnectException
@@ -12,7 +12,8 @@ import java.net.UnknownHostException
  *
  * @param errorCode 错误码
  * @param errorMsg 错误消息
- * Created by chiclaim@google.com
+ *
+ * @author chiclaim@google.com
  */
 class ApiException(val errorCode: Int, errorMsg: String) : Exception(errorMsg)
 

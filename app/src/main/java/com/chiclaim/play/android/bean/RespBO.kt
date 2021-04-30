@@ -12,9 +12,8 @@ import com.chiclaim.play.android.exception.toApiException
  * @param errorMsg 错误信息，如果发生错误，则返回错误信息；如果请求成功 errorMsg 也可能为空字符串 ""，所以需要同时处理 null 和 "" 的情况
  * @param data 请求成功返回的数据对象
  *
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
-
 class RespBO<T>(
     val errorCode: Int = -1,
     val errorMsg: String? = null,

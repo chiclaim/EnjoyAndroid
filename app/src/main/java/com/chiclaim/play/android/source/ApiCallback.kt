@@ -4,7 +4,7 @@ import com.chiclaim.play.android.exception.ApiException
 
 /**
  *
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
 interface ApiCallback<T> {
 

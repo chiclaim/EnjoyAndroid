@@ -3,7 +3,7 @@ package com.chiclaim.play.android.bean
 /**
  * 服务端返回的列表模板类
  *
- * Created by kumu@2dfire.com
+ * @author kumu@2dfire.com
  */
 class PageBO<T> {
 

@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
 object Api {
 

@@ -1,11 +1,11 @@
-package com.chiclaim.play.android
+package com.chiclaim.play.android.utils
 
-import com.chiclaim.play.android.utils.AppGlobal
+import com.chiclaim.play.android.R
 
 /**
  * 网络错误信息封装。错误信息需要国际化，所以不能硬编码。将逻辑封装在 [NetError] 中便于将来替换实现
  *
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
 class NetError {
 

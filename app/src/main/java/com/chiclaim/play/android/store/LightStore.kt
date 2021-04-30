@@ -7,7 +7,7 @@ import com.tencent.mmkv.MMKV
 /**
  *  轻量级本地存储（如 SharedPreference），由于 SharedPreference 问题比较多，本项目采用 Tencent MMKV
  *
- * Created by  chiclaim@google.com
+ * @author chiclaim@google.com
  */
 object LightStore {
 

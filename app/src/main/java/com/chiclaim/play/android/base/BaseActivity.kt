@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 /**
  *
  *
- * Created by  chiclaim@google.com
+ * @author chiclaim@google.com
  */
 abstract class BaseActivity : AppCompatActivity() {
 }

@@ -7,7 +7,7 @@ import okhttp3.Response
 /**
  *  wanandroid.com 的开放 API 基于 Cookie 返回登陆信息，每次调用接口都需要带上登录时返回的 Cookie 信息
  *
- * Created by  chiclaim@google.com
+ * @author chiclaim@google.com
  */
 class CookieInterceptor : Interceptor {
 

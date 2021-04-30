@@ -12,7 +12,7 @@ import androidx.annotation.StringRes
  *
  * 禁止在此处共享其他全局变量对象，避免内存泄漏。
  *
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
 object AppGlobal {
 

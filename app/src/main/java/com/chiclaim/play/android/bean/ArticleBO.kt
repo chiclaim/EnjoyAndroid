@@ -5,7 +5,7 @@ package com.chiclaim.play.android.bean
  *
  * > 服务端返回的 JSON bean，作为原始数据，应设计成不可变，所以对应的属性设计为 val
  *
- * Created by kumu@2dfire.com
+ * @author kumu@2dfire.com
  */
 class ArticleBO {
 

@@ -13,7 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 /**
- * Created by chiclaim@google.com
+ * @author chiclaim@google.com
  */
 object UserRepos {
 

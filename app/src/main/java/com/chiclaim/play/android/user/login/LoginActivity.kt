@@ -20,7 +20,7 @@ import retrofit2.Response
 /**
  * 登录页面
  *
- * Created by kumu@2dfire.com
+ * @author kumu@2dfire.com
  */
 class LoginActivity : BaseActivity() {
 
