@@ -9,13 +9,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.chiclaim.play.android.MainActivity
 import com.chiclaim.play.android.R
 import com.chiclaim.play.android.base.BaseActivity
-import com.chiclaim.play.android.bean.ArticleBO
-import com.chiclaim.play.android.bean.PageBO
-import com.chiclaim.play.android.bean.RespBO
 import com.chiclaim.play.android.source.Api
 import com.chiclaim.play.android.source.WanApi
-import retrofit2.Call
-import retrofit2.Response
+import com.chiclaim.play.android.task.startTask
+import com.chiclaim.play.android.task.startTaskAsync
+import com.chiclaim.play.android.task.uiJob
+import kotlinx.coroutines.GlobalScope
 
 /**
  * 登录页面
@@ -61,9 +60,49 @@ class LoginActivity : BaseActivity() {
 
         }
 
-
         findViewById<Button>(R.id.btn_test).setOnClickListener {
-            wanApi.getArticleList(0).enqueue(
+
+            GlobalScope.uiJob(block = {
+
+                println("start request server..." + Thread.currentThread().name)
+                // retrofit and coroutine // 同步
+                Api.create(WanApi::class.java).getCollectedArticleList(0)
+
+                // 执行同步任务
+                val value = startTask {
+                    println("sync task start on thread: " + Thread.currentThread().name)
+                    Thread.sleep(2000)
+                    20
+                }
+                println("get sync task value: $value on thread: " + Thread.currentThread().name)
+
+                // 开始执行异步任务1
+                val deferred = startTaskAsync(this) {
+                    println("async task1 start on thread:" + Thread.currentThread().name)
+                    Thread.sleep(4000)
+                    null
+                }
+
+                // 开始执行异步任务2
+                val deferred2 = startTaskAsync(this) {
+                    println("async task2 start on thread: " + Thread.currentThread().name)
+                    Thread.sleep(2000)
+                    if (true) {
+                        throw IllegalStateException("my exception2")
+                    }
+                    20
+                }
+
+                println("get async task1 value:${deferred.await()} on thread: " + Thread.currentThread().name)
+                println("get async task2 value:${deferred2.await()} on thread: " + Thread.currentThread().name)
+
+            }, onFailed = { // 处理异常
+                println("handle uiJob exception on uiJob: " + Thread.currentThread().name)
+                it.printStackTrace()
+            })
+
+
+            /*wanApi.getArticleList(0).enqueue(
                 object : retrofit2.Callback<RespBO<PageBO<ArticleBO>>> {
                     override fun onResponse(
                         call: Call<RespBO<PageBO<ArticleBO>>>,
@@ -86,7 +125,7 @@ class LoginActivity : BaseActivity() {
                         t.printStackTrace()
                     }
                 }
-            )
+            )*/
 
         }
 

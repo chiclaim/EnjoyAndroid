@@ -34,8 +34,8 @@ fun Throwable.toApiException(): ApiException {
             NetError.getConnectErrMsg()
         )
         is UnknownHostException -> ApiException(
-            NetError.ERR_CODE_TIMEOUT,
-            NetError.getTimeoutMsg()
+            NetError.ERR_CODE_CONNECT,
+            NetError.getConnectErrMsg()
         )
         is JsonParseException -> ApiException(
             NetError.ERR_CODE_PARSE_DATA,

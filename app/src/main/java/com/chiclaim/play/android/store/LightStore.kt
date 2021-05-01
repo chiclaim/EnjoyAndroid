@@ -16,7 +16,7 @@ object LightStore {
     }
 
     private fun getMMKV(name: String?): MMKV? {
-        if (name?.isEmpty() == true) {
+        if (name.isNullOrEmpty()) {
             return MMKV.defaultMMKV()
         }
         return MMKV.mmkvWithID(name)
@@ -89,9 +89,9 @@ object LightStore {
     }
 
     fun getSetString(
-        key: String?,
-        default: Set<String>? = null,
-        name: String? = null
+            key: String?,
+            default: Set<String>? = null,
+            name: String? = null
     ): Set<String>? {
         return getMMKV(name)?.decodeStringSet(key, default) ?: default
     }

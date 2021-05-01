@@ -9,7 +9,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 /**
- *
+ * wanandroid.com open api
  *
  * @author kumu@2dfire.com
  */
@@ -34,16 +34,15 @@ interface WanApi {
      */
     @GET("/article/list/{pageIndex}/json")
     fun getArticleList(
-        @Path("pageIndex") pageIndex: Int): Call<RespBO<PageBO<ArticleBO>>>
+        @Path("pageIndex") pageIndex: Int): Call<RespBO<PageBO<ArticleBO>>> // retrofit Call
 
 
     /**
      * 获取收藏的文章列表
      * @param pageIndex 从 0 开始
      */
-    @GET("lg/collect/list/{pageIndex}/json")
-    fun getCollectedArticleList(
-        @Path("pageIndex") pageIndex: Int): Call<RespBO<PageBO<ArticleBO>>>
-
+    @GET("/lg/collect/list/{pageIndex}/json")
+    suspend fun getCollectedArticleList(
+        @Path("pageIndex") pageIndex: Int): RespBO<PageBO<ArticleBO>> // 搭配 Coroutine
 
 }
