@@ -72,12 +72,12 @@ fun CoroutineScope.uiJob(timeout: Long = 0L,
  * @param block 需要执行的代码块
  * @return Unit
  */
-private fun startJob(
+fun startJob(
         parentScope: CoroutineScope,
         coroutineContext: CoroutineContext = Dispatchers.Default,
         timeout: Long = 0L,
         block: suspend CoroutineScope.() -> Unit,
-        onFailed: ((t: Throwable) -> Unit)) {
+        onFailed: ((t: Throwable) -> Unit)? = null) {
     parentScope.launch(coroutineContext) {
         supervisorScope {
             if (timeout > 0L) {
@@ -85,15 +85,16 @@ private fun startJob(
                     try {
                         block()
                     } catch (t: Throwable) {
-                        onFailed(t.toApiException())
+                        val f = onFailed ?: throw  t
+                        f(t.toApiException())
                     }
                 }
-
             } else {
                 try {
                     block()
                 } catch (t: Throwable) {
-                    onFailed(t.toApiException())
+                    val f = onFailed ?: throw  t
+                    f(t.toApiException())
                 }
             }
         }
