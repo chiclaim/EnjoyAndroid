@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.user.login
+package com.chiclaim.play.android.funcs.user.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

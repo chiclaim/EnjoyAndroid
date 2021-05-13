@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.user.login
+package com.chiclaim.play.android.funcs.user.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.chiclaim.play.android.MainActivity
 import com.chiclaim.play.android.R
 import com.chiclaim.play.android.base.BaseActivity
-import com.chiclaim.play.android.source.Api
-import com.chiclaim.play.android.source.WanApi
+import com.chiclaim.play.android.retrofit.Api
+import com.chiclaim.play.android.retrofit.WanApi
 import com.chiclaim.play.android.task.startTask
 import com.chiclaim.play.android.task.startTaskAsync
 import com.chiclaim.play.android.task.uiJob
@@ -53,6 +53,7 @@ class LoginActivity : BaseActivity() {
                 .observe(this) {
                     if (it.isSuccess()) {
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        finish()
                     } else {
                         Toast.makeText(this, it.getErrCodeMsg(), Toast.LENGTH_SHORT).show()
                     }
@@ -62,6 +63,7 @@ class LoginActivity : BaseActivity() {
 
         findViewById<Button>(R.id.btn_test).setOnClickListener {
 
+            // place your scope
             GlobalScope.uiJob(block = {
 
                 println("start request server..." + Thread.currentThread().name)

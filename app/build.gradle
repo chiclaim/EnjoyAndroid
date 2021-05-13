@@ -29,6 +29,8 @@ dependencies {
 
     // store
     implementation rootProject.ext.dependencies.mmkv
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
 
 
     // test

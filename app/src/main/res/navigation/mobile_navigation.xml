@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.chiclaim.play.android.funcs.home.HomeFragment"
+        android:label="@string/tab_label_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_system"
+        android:name="com.chiclaim.play.android.funcs.system.SystemFragment"
+        android:label="@string/tab_label_system"
+        tools:layout="@layout/fragment_system" />
+
+    <fragment
+        android:id="@+id/navigation_project"
+        android:name="com.chiclaim.play.android.funcs.project.ProjectFragment"
+        android:label="@string/tab_label_project"
+        tools:layout="@layout/fragment_project" />
+
+
+    <fragment
+        android:id="@+id/navigation_me"
+        android:name="com.chiclaim.play.android.funcs.user.MeFragment"
+        android:label="@string/tab_label_me"
+        tools:layout="@layout/fragment_tab_me" />
+</navigation>

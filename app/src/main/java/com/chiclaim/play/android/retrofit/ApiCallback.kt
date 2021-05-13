@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.source
+package com.chiclaim.play.android.retrofit
 
 import com.chiclaim.play.android.exception.ApiException
 

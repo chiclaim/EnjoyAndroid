@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.source
+package com.chiclaim.play.android.retrofit
 
 import com.chiclaim.play.android.store.LightStore
 import okhttp3.Interceptor
@@ -12,8 +12,8 @@ import okhttp3.Response
 class CookieInterceptor : Interceptor {
 
     companion object {
-        private const val KEY_SET_COOKIE = "set-cookie"
-        private const val KEY_LOGIN_COOKIE = "login_cookie"
+        const val KEY_SET_COOKIE = "set-cookie"
+        const val KEY_LOGIN_COOKIE = "login_cookie"
     }
 
 

@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.source
+package com.chiclaim.play.android.retrofit
 
 import androidx.lifecycle.LiveData
 import com.chiclaim.play.android.bean.ArticleBO

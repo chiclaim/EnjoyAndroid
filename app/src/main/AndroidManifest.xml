@@ -25,9 +25,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.chiclaim.play.android.MainActivity" />
+        <activity
+            android:name="com.chiclaim.play.android.MainActivity"
+            android:launchMode="singleTask" />
 
-        <activity android:name="com.chiclaim.play.android.user.login.LoginActivity" />
+        <activity android:name="com.chiclaim.play.android.funcs.user.login.LoginActivity" />
     </application>
 
 </manifest>

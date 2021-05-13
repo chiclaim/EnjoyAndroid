@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.source
+package com.chiclaim.play.android.retrofit
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
