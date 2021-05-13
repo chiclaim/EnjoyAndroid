@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.chiclaim.play.android.base.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,7 +30,10 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         navigationView = findViewById(R.id.navigation_view)
         bottomNav = findViewById(R.id.bottom_navigation)
-        navController = findNavController(R.id.hostFragment)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
+        navController = navHostFragment.navController
 
         setupBottomNavigation()
 
