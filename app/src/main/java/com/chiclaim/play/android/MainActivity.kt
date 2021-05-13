@@ -68,17 +68,13 @@ class MainActivity : BaseActivity() {
 
             override fun onDrawerOpened(drawerView: View) {
                 indicatorController.setActionBarUpIndicator(false)
-                Log.e("addDrawerListener", "onDrawerOpened")
             }
 
             override fun onDrawerClosed(drawerView: View) {
                 indicatorController.setActionBarUpIndicator(true)
-                Log.e("addDrawerListener", "onDrawerClosed")
-
             }
 
             override fun onDrawerStateChanged(newState: Int) {
-                Log.e("addDrawerListener", "onDrawerStateChanged:$newState")
             }
         })
 
@@ -110,7 +106,6 @@ class MainActivity : BaseActivity() {
 
 
     override fun onSupportNavigateUp(): Boolean {
-        //return navController.navigateUp()
         return NavigationUI.navigateUp(navController, appBarConfiguration)
 
     }

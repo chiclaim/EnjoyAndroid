@@ -22,7 +22,7 @@ class IndicatorController private constructor(val activity: AppCompatActivity) {
     private var arrowDrawable: DrawerArrowDrawable? = null
     private var arrowAnimator: ValueAnimator? = null
 
-    fun setNavigationIcon(
+    private fun setNavigationIcon(
         drawable: DrawerArrowDrawable,
         @StringRes desc: Int
     ) {
@@ -38,7 +38,9 @@ class IndicatorController private constructor(val activity: AppCompatActivity) {
     fun setActionBarUpIndicator(showAsDrawerIndicator: Boolean) {
         var animate = true
         if (arrowDrawable == null) {
-            arrowDrawable = DrawerArrowDrawable(activity)
+            arrowDrawable = DrawerArrowDrawable(activity).apply {
+                color = activity.resources.getColor(R.color.colorOnPrimary)
+            }
             animate = false
         }
 
