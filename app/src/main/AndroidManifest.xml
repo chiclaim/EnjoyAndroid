@@ -27,9 +27,11 @@
 
         <activity
             android:name="com.chiclaim.play.android.MainActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.PlayAndroid.NoActionBar"/>
 
         <activity android:name="com.chiclaim.play.android.funcs.user.login.LoginActivity" />
+
     </application>
 
 </manifest>
