@@ -1,4 +1,4 @@
-package com.chiclaim.play.android
+package com.chiclaim.play.android.utils
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -6,12 +6,15 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import com.chiclaim.play.android.R
 
 /**
+ * ActionBarIndicator 和 DrawerLayout 交互
  *
+ * @see androidx.appcompat.app.ActionBarDrawerToggle
  * @author by chiclaim@google.com
  */
-class IndicatorController private constructor(val activity: AppCompatActivity) {
+class IndicatorController private constructor(private val activity: AppCompatActivity) {
 
 
     companion object {
