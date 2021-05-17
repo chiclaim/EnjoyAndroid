@@ -1,7 +1,7 @@
 package com.chiclaim.play.android.retrofit
 
 import androidx.lifecycle.LiveData
-import com.chiclaim.play.android.bean.RespBO
+import com.chiclaim.play.android.bean.bo.RespBO
 import retrofit2.*
 import retrofit2.CallAdapter.Factory
 import java.lang.reflect.ParameterizedType

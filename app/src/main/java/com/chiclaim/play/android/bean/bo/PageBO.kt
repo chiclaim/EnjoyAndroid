@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.bean
+package com.chiclaim.play.android.bean.bo
 
 /**
  * 服务端返回的列表模板类

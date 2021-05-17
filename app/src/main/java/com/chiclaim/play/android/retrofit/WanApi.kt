@@ -1,10 +1,10 @@
 package com.chiclaim.play.android.retrofit
 
 import androidx.lifecycle.LiveData
-import com.chiclaim.play.android.bean.ArticleBO
-import com.chiclaim.play.android.bean.PageBO
-import com.chiclaim.play.android.bean.RespBO
-import com.chiclaim.play.android.bean.UserBO
+import com.chiclaim.play.android.bean.bo.ArticleBO
+import com.chiclaim.play.android.bean.bo.PageBO
+import com.chiclaim.play.android.bean.bo.RespBO
+import com.chiclaim.play.android.bean.bo.UserBO
 import retrofit2.Call
 import retrofit2.http.*
 

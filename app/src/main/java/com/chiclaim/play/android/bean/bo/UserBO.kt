@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.bean
+package com.chiclaim.play.android.bean.bo
 
 /**
  * 接口返回的用户信息

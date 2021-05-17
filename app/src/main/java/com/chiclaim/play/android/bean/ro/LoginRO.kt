@@ -1,4 +1,4 @@
-package com.chiclaim.play.android.bean.request
+package com.chiclaim.play.android.bean.ro
 
 /**
  *

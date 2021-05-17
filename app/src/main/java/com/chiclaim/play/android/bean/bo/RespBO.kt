@@ -1,6 +1,6 @@
-package com.chiclaim.play.android.bean
+package com.chiclaim.play.android.bean.bo
 
-import com.chiclaim.play.android.bean.RespBO.Companion.CODE_INVALID_LOGIN
+import com.chiclaim.play.android.bean.bo.RespBO.Companion.CODE_INVALID_LOGIN
 import com.chiclaim.play.android.exception.toApiException
 
 /**
