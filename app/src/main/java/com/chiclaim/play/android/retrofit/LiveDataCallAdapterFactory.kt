@@ -60,23 +60,26 @@ class LiveDataCallAdapterFactory : Factory() {
                                 call: Call<RespBO<R>>,
                                 response: Response<RespBO<R>>
                             ) {
-
-                                if (response.isSuccessful) {
-                                    postValue(response.body())
-                                } else if (response.errorBody() != null) {
-                                    postValue(
-                                        RespBO(
-                                            errorCode = response.code(),
-                                            errorMsg = response.errorBody()?.string()
+                                when {
+                                    response.isSuccessful -> {
+                                        postValue(response.body())
+                                    }
+                                    response.errorBody() != null -> {
+                                        postValue(
+                                            RespBO(
+                                                errorCode = response.code(),
+                                                errorMsg = response.errorBody()?.string()
+                                            )
                                         )
-                                    )
-                                } else {
-                                    postValue(
-                                        RespBO(
-                                            errorCode = response.code(),
-                                            errorMsg = "unknown error"
+                                    }
+                                    else -> {
+                                        postValue(
+                                            RespBO(
+                                                errorCode = response.code(),
+                                                errorMsg = "unknown error"
+                                            )
                                         )
-                                    )
+                                    }
                                 }
                             }
 
