@@ -44,23 +44,44 @@ class LiveDataCallAdapterFactory : Factory() {
     }
 
 
-    class LiveDataCallAdapter<R : RespBO<R>>(private val responseType: Type) :
-        CallAdapter<R, LiveData<RespBO<R>>> {
+    class LiveDataCallAdapter<R>(private val responseType: Type) :
+        CallAdapter<RespBO<R>, LiveData<RespBO<R>>> {
 
         override fun responseType() = responseType
 
-        override fun adapt(call: Call<R>): LiveData<RespBO<R>> {
+        override fun adapt(call: Call<RespBO<R>>): LiveData<RespBO<R>> {
             return object : LiveData<RespBO<R>>() {
                 private var started = AtomicBoolean(false)
                 override fun onActive() {
                     super.onActive()
                     if (started.compareAndSet(false, true)) {
-                        call.enqueue(object : Callback<R> {
-                            override fun onResponse(call: Call<R>, response: Response<R>) {
-                                postValue(response.body())
+                        call.enqueue(object : Callback<RespBO<R>> {
+                            override fun onResponse(
+                                call: Call<RespBO<R>>,
+                                response: Response<RespBO<R>>
+                            ) {
+
+                                if (response.isSuccessful) {
+                                    postValue(response.body())
+                                } else if (response.errorBody() != null) {
+                                    postValue(
+                                        RespBO(
+                                            errorCode = response.code(),
+                                            errorMsg = response.errorBody()?.string()
+                                        )
+                                    )
+                                } else {
+                                    postValue(
+                                        RespBO(
+                                            errorCode = response.code(),
+                                            errorMsg = "unknown error"
+                                        )
+                                    )
+                                }
                             }
 
-                            override fun onFailure(call: Call<R>, throwable: Throwable) {
+                            // handle network error
+                            override fun onFailure(call: Call<RespBO<R>>, throwable: Throwable) {
                                 postValue(RespBO.create(throwable))
                             }
                         })
