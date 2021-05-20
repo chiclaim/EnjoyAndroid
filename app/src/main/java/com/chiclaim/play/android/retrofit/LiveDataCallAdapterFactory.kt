@@ -61,9 +61,11 @@ class LiveDataCallAdapterFactory : Factory() {
                                 response: Response<RespBO<R>>
                             ) {
                                 when {
+                                    // 处理 HTTP code [200..300)
                                     response.isSuccessful -> {
                                         postValue(response.body())
                                     }
+                                    // 处理 HTTP code 不在 [200..300) 范围的情况，如 405
                                     response.errorBody() != null -> {
                                         postValue(
                                             RespBO(
@@ -72,6 +74,7 @@ class LiveDataCallAdapterFactory : Factory() {
                                             )
                                         )
                                     }
+                                    // 其他未知错误
                                     else -> {
                                         postValue(
                                             RespBO(
@@ -83,7 +86,7 @@ class LiveDataCallAdapterFactory : Factory() {
                                 }
                             }
 
-                            // handle network error
+                            // 处理网络错误，如网络不可用、超时等
                             override fun onFailure(call: Call<RespBO<R>>, throwable: Throwable) {
                                 postValue(RespBO.create(throwable))
                             }

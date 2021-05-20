@@ -17,7 +17,7 @@ import com.chiclaim.play.android.exception.toApiException
 class RespBO<T>(
     val errorCode: Int = -1,
     val errorMsg: String? = null,
-    val data: T?
+    val data: T? = null
 ) {
 
     companion object {
@@ -27,8 +27,7 @@ class RespBO<T>(
             val e = throwable.toApiException()
             return RespBO(
                 errorCode = e.errorCode,
-                errorMsg = e.message,
-                data = null
+                errorMsg = e.message
             )
         }
     }
