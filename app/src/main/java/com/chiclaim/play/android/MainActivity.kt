@@ -2,13 +2,17 @@ package com.chiclaim.play.android
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.SparseArray
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.util.forEach
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.fragment.app.Fragment
 import androidx.navigation.ui.*
 import com.chiclaim.play.android.base.BaseActivity
+import com.chiclaim.play.android.funcs.home.ArticleFragment
+import com.chiclaim.play.android.funcs.project.ProjectFragment
+import com.chiclaim.play.android.funcs.user.MeFragment
 import com.chiclaim.play.android.funcs.user.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -25,8 +29,11 @@ class MainActivity : BaseActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
 
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    private var fragments = SparseArray<Fragment>().apply {
+        put(R.id.navigation_home, ArticleFragment())
+        put(R.id.navigation_project, ProjectFragment())
+        put(R.id.navigation_me, MeFragment())
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,10 +45,6 @@ class MainActivity : BaseActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         toolbar = findViewById(R.id.toolbar)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
-        navController = navHostFragment.navController
-
 
         val actionBarDrawerToggle = ActionBarDrawerToggle(
             this,
@@ -52,16 +55,6 @@ class MainActivity : BaseActivity() {
         )
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
-
-        bottomNavigation.setupWithNavController(navController)
-
-
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
-
-        // DrawerLayout 中的 NavigationView item 的点击和 BottomNavigationView 联动
-        //NavigationUI.setupWithNavController(drawerNavigationView, navController)
 
 
         drawerNavigationView.setNavigationItemSelectedListener {
@@ -75,6 +68,7 @@ class MainActivity : BaseActivity() {
 
         bottomNavigation.setOnNavigationItemSelectedListener {
             toolbar.title = it.title
+            switchFragment(fragments[it.itemId])
             true
         }
         // 触发 OnNavigationItemSelectedListener 更新 title
@@ -82,8 +76,24 @@ class MainActivity : BaseActivity() {
     }
 
 
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
+    private fun switchFragment(fragment: Fragment) {
+        if (fragment.isVisible) return
+        fragments.forEach { _, _fragment ->
+            if (_fragment.isVisible) {
+                supportFragmentManager.beginTransaction()
+                    .hide(_fragment)
+                    .commitAllowingStateLoss()
+            }
+        }
+        if (!fragment.isAdded) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container_view, fragment)
+                .commitAllowingStateLoss()
+        } else {
+            supportFragmentManager.beginTransaction()
+                .show(fragment)
+                .commitAllowingStateLoss()
+        }
     }
 
 }

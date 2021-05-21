@@ -47,3 +47,8 @@ fun Throwable.toApiException(): ApiException {
         )
     }
 }
+
+fun Throwable.codeMessage(): String {
+    val apiException = this.toApiException()
+    return "[${apiException.errorCode}]${apiException.message}"
+}

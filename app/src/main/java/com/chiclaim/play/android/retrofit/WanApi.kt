@@ -1,10 +1,7 @@
 package com.chiclaim.play.android.retrofit
 
 import androidx.lifecycle.LiveData
-import com.chiclaim.play.android.bean.bo.ArticleBO
-import com.chiclaim.play.android.bean.bo.PageBO
-import com.chiclaim.play.android.bean.bo.RespBO
-import com.chiclaim.play.android.bean.bo.UserBO
+import com.chiclaim.play.android.bean.bo.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -25,7 +22,8 @@ interface WanApi {
     @FormUrlEncoded
     fun login(
         @Field("username") username: String,
-        @Field("password") password: String): LiveData<RespBO<UserBO>> // 搭配 LiveData
+        @Field("password") password: String
+    ): LiveData<RespBO<UserBO>> // 搭配 LiveData
 
 
     /**
@@ -34,7 +32,8 @@ interface WanApi {
      */
     @GET("/article/list/{pageIndex}/json")
     fun getArticleList(
-        @Path("pageIndex") pageIndex: Int): Call<RespBO<PageBO<ArticleBO>>> // retrofit Call
+        @Path("pageIndex") pageIndex: Int
+    ): Call<RespBO<PageBO<ArticleBO>>> // retrofit Call
 
 
     /**
@@ -43,6 +42,14 @@ interface WanApi {
      */
     @GET("/lg/collect/list/{pageIndex}/json")
     suspend fun getCollectedArticleList(
-        @Path("pageIndex") pageIndex: Int): RespBO<PageBO<ArticleBO>> // 搭配 Coroutine
+        @Path("pageIndex") pageIndex: Int
+    ): RespBO<PageBO<ArticleBO>> // 搭配 Coroutine
+
+
+    /**
+     * 文章分类（体系）
+     */
+    @GET("/tree/json")
+    suspend fun articleCategories(): RespBO<List<ArticleCategoryBO>>
 
 }

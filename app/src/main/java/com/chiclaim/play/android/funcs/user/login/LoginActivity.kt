@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.chiclaim.play.android.MainActivity
 import com.chiclaim.play.android.R
 import com.chiclaim.play.android.base.BaseActivity
+import com.chiclaim.play.android.exception.codeMessage
 import com.chiclaim.play.android.retrofit.Api
 import com.chiclaim.play.android.retrofit.WanApi
 import com.chiclaim.play.android.task.startTask
@@ -55,7 +56,7 @@ class LoginActivity : BaseActivity() {
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this, it.getErrCodeMsg(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, it.codeMessage(), Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -68,7 +69,7 @@ class LoginActivity : BaseActivity() {
 
                 println("start request server..." + Thread.currentThread().name)
                 // retrofit and coroutine // 同步
-                Api.create(WanApi::class.java).getCollectedArticleList(0)
+                val result = Api.create(WanApi::class.java).getCollectedArticleList(0)
 
                 // 执行同步任务
                 val value = startTask {
@@ -101,6 +102,7 @@ class LoginActivity : BaseActivity() {
             }, onFailed = { // 处理异常
                 println("handle uiJob exception on uiJob: " + Thread.currentThread().name)
                 it.printStackTrace()
+                Toast.makeText(this, it.codeMessage(), Toast.LENGTH_SHORT).show()
             })
 
 

@@ -7,15 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.chiclaim.play.android.funcs.home.HomeFragment"
+        android:name="com.chiclaim.play.android.funcs.home.ArticleFragment"
         android:label="@string/tab_label_home"
         tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_system"
-        android:name="com.chiclaim.play.android.funcs.system.SystemFragment"
-        android:label="@string/tab_label_system"
-        tools:layout="@layout/fragment_system" />
 
     <fragment
         android:id="@+id/navigation_project"
