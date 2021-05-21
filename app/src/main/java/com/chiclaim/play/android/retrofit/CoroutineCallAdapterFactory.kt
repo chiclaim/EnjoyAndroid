@@ -1,8 +1,5 @@
 package com.chiclaim.play.android.retrofit
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import com.chiclaim.play.android.bean.bo.RespBO
 import com.chiclaim.play.android.exception.ApiException
 import com.chiclaim.play.android.exception.toApiException
@@ -20,7 +17,6 @@ import java.lang.reflect.Type
  */
 class CoroutineCallAdapterFactory : Factory() {
 
-    @RequiresApi(Build.VERSION_CODES.P)
     override fun get(
         returnType: Type,
         annotations: Array<Annotation>,
@@ -49,8 +45,8 @@ class CoroutineCallAdapterFactory : Factory() {
         }
 
         //UserBO
-        val bodyType = getParameterUpperBound(0, observableType)
-        return LiveDataCallAdapter<RespBO<*>>(observableType)
+        //val bodyType = getParameterUpperBound(0, observableType)
+        return CoroutineCallAdapter<RespBO<*>>(observableType)
     }
 
     class RespCall<R>(private val delegate: Call<RespBO<R>>) : Call<RespBO<R>> {
@@ -133,7 +129,7 @@ class CoroutineCallAdapterFactory : Factory() {
     }
 
 
-    class LiveDataCallAdapter<R>(private val responseType: Type) :
+    class CoroutineCallAdapter<R>(private val responseType: Type) :
         CallAdapter<RespBO<R>, Call<RespBO<R>>> {
 
         override fun responseType() = responseType
