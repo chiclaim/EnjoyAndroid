@@ -49,18 +49,18 @@ class CoroutineCallAdapterFactory : Factory() {
         return CoroutineCallAdapter<RespBO<*>>(observableType)
     }
 
-    class RespCall<R>(private val delegate: Call<RespBO<R>>) : Call<RespBO<R>> {
+    class RespCall<R>(private val okHttpCall: Call<RespBO<R>>) : Call<RespBO<R>> {
 
         override fun clone(): Call<RespBO<R>> {
-            return RespCall(delegate.clone())
+            return RespCall(okHttpCall.clone())
         }
 
         override fun execute(): Response<RespBO<R>> {
-            return delegate.execute()
+            return okHttpCall.execute()
         }
 
         override fun enqueue(callback: Callback<RespBO<R>>) {
-            delegate.enqueue(object : Callback<RespBO<R>> {
+            okHttpCall.enqueue(object : Callback<RespBO<R>> {
                 override fun onResponse(
                     call: Call<RespBO<R>>,
                     response: Response<RespBO<R>>
@@ -108,23 +108,23 @@ class CoroutineCallAdapterFactory : Factory() {
         }
 
         override fun isExecuted(): Boolean {
-            return delegate.isExecuted
+            return okHttpCall.isExecuted
         }
 
         override fun cancel() {
-            delegate.cancel()
+            okHttpCall.cancel()
         }
 
         override fun isCanceled(): Boolean {
-            return delegate.isCanceled
+            return okHttpCall.isCanceled
         }
 
         override fun request(): Request {
-            return delegate.request()
+            return okHttpCall.request()
         }
 
         override fun timeout(): Timeout {
-            return delegate.timeout()
+            return okHttpCall.timeout()
         }
     }
 
