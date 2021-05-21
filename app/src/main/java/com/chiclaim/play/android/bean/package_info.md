@@ -15,7 +15,7 @@
 
 - 接口返回的 JSON 对应的对象命名规范为：以 BO 结尾，如 xxxBO
 - 页面展示需要的对象命名规范为：以 VO 结尾，如 xxxVO，xxx 表示 View 的名称
-- 发起网络请求的对象命名规范为：以 RO 结尾，如 xxxRO，xxx 表示接口名称 (Request Request)
+- 发起网络请求的对象命名规范为：以 RO 结尾，如 xxxRO，xxx 表示接口名称 (Request Request)，请求接口是将参数封装对象，便于后期扩展接口参数字段。
 - 数据库对应的对象命名规范为：以 DO 结尾，如 xxxDO，xxx 表示业务名称
 
 

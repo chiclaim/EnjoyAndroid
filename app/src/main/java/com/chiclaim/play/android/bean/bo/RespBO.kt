@@ -40,5 +40,5 @@ class RespBO<T>(
     /**
      * 获取错误码和错误信息
      */
-    fun getErrCodeMsg() = "[$errorCode] $errorMsg"
+    fun codeMessage() = "[$errorCode]$errorMsg"
 }
