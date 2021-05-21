@@ -9,4 +9,17 @@ import androidx.fragment.app.Fragment
  */
 abstract class BaseFragment : Fragment() {
 
+    val fragmentProvider: ScopeViewModel.FragmentViewModelProvider by lazy {
+        ScopeViewModel.FragmentViewModelProvider(this)
+    }
+
+    val activityProvider: ScopeViewModel.ActivityViewModelProvider by lazy {
+        ScopeViewModel.ActivityViewModelProvider(requireActivity())
+    }
+
+    val applicationProvider: ScopeViewModel.ApplicationViewModelProvider by lazy {
+        ScopeViewModel.ApplicationViewModelProvider(requireActivity().application)
+    }
+
+
 }

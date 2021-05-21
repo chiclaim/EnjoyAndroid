@@ -8,4 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
  * @author chiclaim@google.com
  */
 abstract class BaseActivity : AppCompatActivity() {
+
+    val activityProvider: ScopeViewModel.ActivityViewModelProvider by lazy {
+        ScopeViewModel.ActivityViewModelProvider(this)
+    }
+
+    val applicationProvider: ScopeViewModel.ApplicationViewModelProvider by lazy {
+        ScopeViewModel.ApplicationViewModelProvider(application)
+    }
+
 }
