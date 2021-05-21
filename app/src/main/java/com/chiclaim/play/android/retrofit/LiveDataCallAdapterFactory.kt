@@ -9,8 +9,9 @@ import java.lang.reflect.Type
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * 自定义 CallAdapter，整合 Retrofit 和 LiveData
+ * 自定义 CallAdapter，统一处理和 LiveData 搭配使用时产生的接口错误（业务错误、网络错误）
  * @author chiclaim@google.com
+ * @see CoroutineCallAdapterFactory
  */
 class LiveDataCallAdapterFactory : Factory() {
 
