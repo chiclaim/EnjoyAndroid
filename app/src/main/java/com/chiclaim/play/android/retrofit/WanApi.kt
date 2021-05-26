@@ -52,4 +52,15 @@ interface WanApi {
     @GET("/tree/json")
     suspend fun articleCategories(): RespBO<List<ArticleCategoryBO>>
 
+
+    /**
+     * 文章列表
+     */
+    @GET("/article/list/{pageIndex}/json")
+    suspend fun articleList(
+        @Path("pageIndex") pageIndex: Int,
+        @Query("cid") categoryId: Int
+    ): RespBO<PageBO<ArticleBO>>
+
+
 }
