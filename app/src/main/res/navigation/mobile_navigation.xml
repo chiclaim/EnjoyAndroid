@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.chiclaim.play.android.funcs.home.ArticleFragment"
+        android:name="com.chiclaim.play.android.funcs.article.ArticleFragment"
         android:label="@string/tab_label_home"
         tools:layout="@layout/fragment_home" />
 

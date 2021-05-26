@@ -8,12 +8,8 @@ import com.chiclaim.play.android.databinding.FragmentTabMeBinding
  *
  * @author by chiclaim@google.com
  */
-class MeFragment : BaseFragment() {
+class MeFragment : BaseFragment<FragmentTabMeBinding>() {
 
-
-    private val viewDataBinding: FragmentTabMeBinding by lazy {
-        getDataBinding()
-    }
 
     private lateinit var homeViewModel: MeViewModel
 
@@ -24,7 +20,7 @@ class MeFragment : BaseFragment() {
         homeViewModel = fragmentProvider.viewModel(MeViewModel::class.java)
 
         homeViewModel.text.observe(viewLifecycleOwner)  {
-            viewDataBinding.textMe.text = it
+            requireDataBinding().textMe.text = it
         }
     }
 

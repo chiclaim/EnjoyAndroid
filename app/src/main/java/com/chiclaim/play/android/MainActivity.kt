@@ -10,7 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.ui.*
 import com.chiclaim.play.android.base.BaseActivity
-import com.chiclaim.play.android.funcs.home.ArticleFragment
+import com.chiclaim.play.android.funcs.article.ArticleFragment
 import com.chiclaim.play.android.funcs.project.ProjectFragment
 import com.chiclaim.play.android.funcs.user.MeFragment
 import com.chiclaim.play.android.funcs.user.login.LoginActivity

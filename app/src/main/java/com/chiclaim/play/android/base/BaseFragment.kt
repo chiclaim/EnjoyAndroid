@@ -8,13 +8,14 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.chiclaim.play.android.databinding.FragmentHomeBinding
 
 /**
  * Fragment 基类。为了避免被直接使用，需要声明为 abstract
  *
  * @author by chiclaim@google.com
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     val fragmentProvider: ScopeViewModel.FragmentViewModelProvider by lazy {
         ScopeViewModel.FragmentViewModelProvider(this)
@@ -28,8 +29,7 @@ abstract class BaseFragment : Fragment() {
         ScopeViewModel.ApplicationViewModelProvider(requireActivity().application)
     }
 
-    private var viewDataBinding: ViewDataBinding? = null
-
+    private var viewDataBinding: T? = null
 
     @LayoutRes
     abstract fun getLayoutId(): Int
@@ -37,7 +37,7 @@ abstract class BaseFragment : Fragment() {
     /**
      * 在 [onCreateView] 方法中，构造 viewDataBinding 之后被调用
      */
-    open fun init(){
+    open fun init() {
 
     }
 
@@ -55,8 +55,7 @@ abstract class BaseFragment : Fragment() {
     }
 
 
-    @Suppress("UNCHECKED_CAST")
-    fun <T : ViewDataBinding> getDataBinding(): T {
+    fun requireDataBinding(): T {
         if (viewDataBinding == null) error("must call after onCreateView()")
         return viewDataBinding as T
     }

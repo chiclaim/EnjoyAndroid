@@ -1,4 +1,5 @@
 projectConfigure()
+apply plugin: 'kotlin-kapt'
 
 android {
     defaultConfig {
@@ -18,6 +19,7 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.googleMaterial
     implementation rootProject.ext.dependencies.constraintlayout
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     // kotlin
     implementation rootProject.ext.dependencies.kotlinStdlib

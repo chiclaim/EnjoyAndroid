@@ -29,5 +29,9 @@
 
 
     <string name="desc1">desc1</string>
+    <string name="article_time_author">%1$s • %2$s</string>
+
+
+
 
 </resources>
