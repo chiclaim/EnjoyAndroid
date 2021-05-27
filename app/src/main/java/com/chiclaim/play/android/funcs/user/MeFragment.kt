@@ -1,14 +1,14 @@
 package com.chiclaim.play.android.funcs.user
 
 import com.chiclaim.play.android.R
-import com.chiclaim.play.android.base.BaseFragment
+import com.chiclaim.play.android.base.BaseBindingFragment
 import com.chiclaim.play.android.databinding.FragmentTabMeBinding
 
 /**
  *
  * @author by chiclaim@google.com
  */
-class MeFragment : BaseFragment<FragmentTabMeBinding>() {
+class MeFragment : BaseBindingFragment<FragmentTabMeBinding>() {
 
 
     private lateinit var homeViewModel: MeViewModel
@@ -22,6 +22,9 @@ class MeFragment : BaseFragment<FragmentTabMeBinding>() {
         homeViewModel.text.observe(viewLifecycleOwner)  {
             requireDataBinding().textMe.text = it
         }
+    }
+
+    override fun lazyLoad() {
     }
 
 }

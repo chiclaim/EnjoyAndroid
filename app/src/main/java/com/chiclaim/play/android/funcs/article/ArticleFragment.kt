@@ -4,12 +4,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.chiclaim.play.android.R
-import com.chiclaim.play.android.base.BaseFragment
+import com.chiclaim.play.android.base.BaseBindingFragment
 import com.chiclaim.play.android.databinding.FragmentHomeBinding
 import com.chiclaim.play.android.exception.codeMessage
 import com.chiclaim.play.android.utils.ToastUtil
 
-class ArticleFragment : BaseFragment<FragmentHomeBinding>() {
+class ArticleFragment : BaseBindingFragment<FragmentHomeBinding>() {
 
     private lateinit var homeViewModel: ArticleViewModel
 
@@ -32,7 +32,7 @@ class ArticleFragment : BaseFragment<FragmentHomeBinding>() {
 
         homeViewModel.categoryData.observe(viewLifecycleOwner) {
             it.forEach { vo ->
-                fragmentList.add(ArticleListFragment.create(vo.id))
+                fragmentList.add(ArticleListFragment.create(vo.id,vo.name))
                 tabLabelList.add(vo.name ?: "unknown")
             }
             val articleAdapter = ArticleTabAdapter(
@@ -46,8 +46,6 @@ class ArticleFragment : BaseFragment<FragmentHomeBinding>() {
         homeViewModel.categoryDataError.observe(viewLifecycleOwner) {
             ToastUtil.showShort(requireContext(), it.codeMessage())
         }
-
-        homeViewModel.fetchArticleCategories()
 
     }
 
@@ -66,6 +64,10 @@ class ArticleFragment : BaseFragment<FragmentHomeBinding>() {
             return tabLabelList[position]
         }
 
+    }
+
+    override fun lazyLoad() {
+        homeViewModel.fetchArticleCategories()
     }
 
 
