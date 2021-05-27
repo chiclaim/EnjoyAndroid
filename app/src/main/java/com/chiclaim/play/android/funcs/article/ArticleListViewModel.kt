@@ -24,9 +24,8 @@ class ArticleListViewModel : BaseViewModel() {
             val pageData = ArticleRepos.getArticleList(requestParam).data
             pageData?.datas?.let {
                 postValue(articleListLiveData, convert(it))
-                return@let
+                return@uiJob
             }
-            postValue(articleListLiveData, emptyList())
         }, onFailed = {
             postValue(articleListFailedLiveData, it.toApiException())
         })
