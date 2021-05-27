@@ -66,7 +66,8 @@ class DateUtil {
 
 
                 fun simpleDateFormat(): SimpleDateFormat {
-                    return THREAD_LOCAL.get()!!
+                    return THREAD_LOCAL.get()
+                        ?: error("SimpleDateFormat is null in ${Thread.currentThread().name}")
                 }
             }
         }
