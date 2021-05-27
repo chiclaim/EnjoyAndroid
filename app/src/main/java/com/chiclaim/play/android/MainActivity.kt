@@ -24,10 +24,16 @@ import com.google.android.material.navigation.NavigationView
  */
 class MainActivity : BaseActivity() {
 
+    companion object {
+        const val CURRENT_POSITION = "currentPosition"
+    }
+
     private lateinit var drawerNavigationView: NavigationView
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
+
+    private var tabPosition = 0
 
     private var fragments = SparseArray<Fragment>().apply {
         put(R.id.navigation_home, ArticleFragment())
@@ -62,6 +68,7 @@ class MainActivity : BaseActivity() {
         toolbar = findViewById(R.id.toolbar)
 
         if (savedInstanceState != null) {
+            tabPosition = savedInstanceState.getInt(CURRENT_POSITION)
             retrieveFragment(ArticleFragment::class.java.simpleName)
             retrieveFragment(ProjectFragment::class.java.simpleName)
             retrieveFragment(MeFragment::class.java.simpleName)
@@ -81,6 +88,7 @@ class MainActivity : BaseActivity() {
 
         drawerNavigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
+
                 R.id.navigation_home -> {
                     startActivity(Intent(this, LoginActivity::class.java))
                 }
@@ -90,13 +98,19 @@ class MainActivity : BaseActivity() {
 
         bottomNavigation.setOnNavigationItemSelectedListener {
             toolbar.title = it.title
+            tabPosition = fragments.indexOfKey(it.itemId)
             switchFragment(fragments[it.itemId])
             true
         }
-        // 触发 OnNavigationItemSelectedListener 更新 title
-        bottomNavigation.selectedItemId = R.id.navigation_home
+
+        // 首次 IU 加载，触发 OnNavigationItemSelectedListener 更新 title
+        bottomNavigation.selectedItemId = fragments.keyAt(tabPosition)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(CURRENT_POSITION, tabPosition)
+    }
 
     private fun switchFragment(fragment: Fragment) {
         if (fragment.isVisible) return
