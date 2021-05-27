@@ -36,6 +36,22 @@ class MainActivity : BaseActivity() {
     }
 
 
+    private fun retrieveFragment(tag: String) {
+        when (val fragment =
+            supportFragmentManager.findFragmentByTag(tag)) {
+            is ArticleFragment -> {
+                fragments.put(R.id.navigation_home, fragment)
+            }
+            is ProjectFragment -> {
+                fragments.put(R.id.navigation_project, fragment)
+            }
+            is MeFragment -> {
+                fragments.put(R.id.navigation_me, fragment)
+            }
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,6 +60,12 @@ class MainActivity : BaseActivity() {
         bottomNavigation = findViewById(R.id.bottom_navigation)
         drawerLayout = findViewById(R.id.drawer_layout)
         toolbar = findViewById(R.id.toolbar)
+
+        if (savedInstanceState != null) {
+            retrieveFragment(ArticleFragment::class.java.simpleName)
+            retrieveFragment(ProjectFragment::class.java.simpleName)
+            retrieveFragment(MeFragment::class.java.simpleName)
+        }
 
 
         val actionBarDrawerToggle = ActionBarDrawerToggle(
@@ -87,7 +109,7 @@ class MainActivity : BaseActivity() {
         }
         if (!fragment.isAdded) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container_view, fragment)
+                .add(R.id.fragment_container_view, fragment, fragment.javaClass.simpleName)
                 .commitAllowingStateLoss()
         } else {
             supportFragmentManager.beginTransaction()
