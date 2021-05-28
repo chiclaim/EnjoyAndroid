@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.SparseArray
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.util.containsKey
 import androidx.core.util.forEach
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -35,11 +36,7 @@ class MainActivity : BaseActivity() {
 
     private var tabPosition = 0
 
-    private var fragments = SparseArray<Fragment>().apply {
-        put(R.id.navigation_home, ArticleFragment())
-        put(R.id.navigation_project, ProjectFragment())
-        put(R.id.navigation_me, MeFragment())
-    }
+    private var fragments = SparseArray<Fragment>(3)
 
 
     private fun retrieveFragment(tag: String) {
@@ -57,6 +54,21 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun initFragments(savedInstanceState: Bundle?){
+        if (savedInstanceState != null) {
+            retrieveFragment(ArticleFragment::class.java.simpleName)
+            retrieveFragment(ProjectFragment::class.java.simpleName)
+            retrieveFragment(MeFragment::class.java.simpleName)
+        }
+
+        if(!fragments.containsKey(R.id.navigation_home))
+            fragments.put(R.id.navigation_home, ArticleFragment())
+        if(!fragments.containsKey(R.id.navigation_project))
+            fragments.put(R.id.navigation_project, ProjectFragment())
+        if(!fragments.containsKey(R.id.navigation_me))
+            fragments.put(R.id.navigation_me, MeFragment())
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,10 +81,9 @@ class MainActivity : BaseActivity() {
 
         if (savedInstanceState != null) {
             tabPosition = savedInstanceState.getInt(CURRENT_POSITION)
-            retrieveFragment(ArticleFragment::class.java.simpleName)
-            retrieveFragment(ProjectFragment::class.java.simpleName)
-            retrieveFragment(MeFragment::class.java.simpleName)
         }
+
+        initFragments(savedInstanceState)
 
 
         val actionBarDrawerToggle = ActionBarDrawerToggle(
