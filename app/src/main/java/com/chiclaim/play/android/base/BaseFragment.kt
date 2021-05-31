@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
@@ -13,7 +12,7 @@ import androidx.fragment.app.Fragment
  *
  * @author by chiclaim@google.com
  */
-abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding> : Fragment(), ILayout {
 
     val fragmentProvider: ScopeViewModel.FragmentViewModelProvider by lazy {
         ScopeViewModel.FragmentViewModelProvider(this)
@@ -29,9 +28,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     private var isLoaded = false
 
-    @LayoutRes
-    abstract fun getLayoutId(): Int
-
     /**
      * 延迟加载数据。当 Fragment onResume 时候才会调用，可以在此方法中进行网络请求等操作
      */
@@ -41,7 +37,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     /**
      * 在 [onViewCreated] 方法中调用，可以做一些初始化操作
      */
-    open fun init(view: View) {}
+    open fun init(view: View, savedInstanceState: Bundle?) {}
 
 
     override fun onCreateView(
@@ -49,12 +45,12 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(getLayoutId(), container, false)
+        return initContentView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init(view)
+        init(view, savedInstanceState)
     }
 
 
@@ -69,6 +65,14 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         isLoaded = false
+    }
+
+    open fun initContentView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(getLayoutId(), container, false)
     }
 
 }

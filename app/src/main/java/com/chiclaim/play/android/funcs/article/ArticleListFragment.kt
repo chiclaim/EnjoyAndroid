@@ -42,7 +42,7 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
         ArticleAdapter()
     }
 
-    override fun init(view: View) {
+    override fun init(view: View, savedInstanceState: Bundle?) {
 
 
         arguments?.let {
@@ -97,7 +97,7 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
 
     override fun lazyLoad() {
         val contentData = getContentData()
-        if (articleListViewModel.getReuseFlagAndReset() && contentData?.isNotEmpty() == true) {
+        if (articleListViewModel.reuseDataFlagAndReset() && contentData?.isNotEmpty() == true) {
             adapter.submitList(contentData)
         } else {
             articleListViewModel.fetchArticleList(ArticleListRO(0, categoryId))

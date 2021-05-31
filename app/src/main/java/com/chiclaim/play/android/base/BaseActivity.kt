@@ -1,5 +1,6 @@
 package com.chiclaim.play.android.base
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -7,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
  *
  * @author chiclaim@google.com
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), ILayout {
 
     val activityProvider: ScopeViewModel.ActivityViewModelProvider by lazy {
         ScopeViewModel.ActivityViewModelProvider(this)
@@ -15,6 +16,23 @@ abstract class BaseActivity : AppCompatActivity() {
 
     val applicationProvider: ScopeViewModel.ApplicationViewModelProvider by lazy {
         ScopeViewModel.ApplicationViewModelProvider(application)
+    }
+
+    /**
+     * invoke after init content view
+     */
+    open fun init(savedInstanceState: Bundle?) {
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initContentView()
+        init(savedInstanceState)
+    }
+
+    open fun initContentView() {
+        setContentView(getLayoutId())
     }
 
 }

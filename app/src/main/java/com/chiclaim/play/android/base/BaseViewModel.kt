@@ -106,7 +106,7 @@ abstract class BaseViewModel : ViewModel() {
      * }
      * ```
      */
-    fun getReuseFlagAndReset(): Boolean {
+    fun reuseDataFlagAndReset(): Boolean {
         if (pageStamp == -1 && viewStamp == -1)
             throw IllegalStateException("invoke bindForFragment() or bindForActivity() first")
         val tmp = reuseData

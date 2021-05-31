@@ -1,5 +1,6 @@
 package com.chiclaim.play.android.funcs.article
 
+import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -25,9 +26,8 @@ class ArticleFragment : BaseBindingFragment<FragmentHomeBinding>() {
     override fun getLayoutId() = R.layout.fragment_home
 
 
-    override fun init(view: View) {
-        super.init(view)
-
+    override fun init(view: View, savedInstanceState: Bundle?) {
+        super.init(view, savedInstanceState)
 
         homeViewModel = fragmentProvider.viewModel(ArticleViewModel::class.java)
 

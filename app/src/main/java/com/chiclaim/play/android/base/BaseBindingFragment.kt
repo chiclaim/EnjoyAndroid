@@ -11,11 +11,11 @@ import androidx.databinding.ViewDataBinding
  * 封装 DataBinding Fragment
  * @author by chiclaim@google.com
  */
-abstract class BaseBindingFragment<T : ViewDataBinding> : BaseFragment<T>() {
+abstract class BaseBindingFragment<T : ViewDataBinding> : BaseFragment<T>(), IDataBinding<T> {
 
-    private var viewDataBinding: T? = null
+    override var viewDataBinding: T? = null
 
-    override fun onCreateView(
+    override fun initContentView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,15 +24,9 @@ abstract class BaseBindingFragment<T : ViewDataBinding> : BaseFragment<T>() {
             inflater,
             getLayoutId(), container, false
         )
+        viewDataBinding?.lifecycleOwner = this
         return viewDataBinding?.root
     }
-
-
-    fun requireDataBinding(): T {
-        if (viewDataBinding == null) error("must call after onCreateView()")
-        return viewDataBinding as T
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
