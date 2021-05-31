@@ -10,7 +10,7 @@ import com.chiclaim.play.android.retrofit.WanApi
 /**
  * @author chiclaim@google.com
  */
-object UserRepos {
+class UserRepos {
 
     private val wanApi = Api.create(WanApi::class.java)
 
