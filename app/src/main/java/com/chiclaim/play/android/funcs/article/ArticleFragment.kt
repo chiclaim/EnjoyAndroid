@@ -1,5 +1,6 @@
 package com.chiclaim.play.android.funcs.article
 
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -24,15 +25,17 @@ class ArticleFragment : BaseBindingFragment<FragmentHomeBinding>() {
     override fun getLayoutId() = R.layout.fragment_home
 
 
-    override fun init() {
-        super.init()
+    override fun init(view: View) {
+        super.init(view)
 
 
         homeViewModel = fragmentProvider.viewModel(ArticleViewModel::class.java)
 
+        homeViewModel.bindForFragment(this, view)
+
         homeViewModel.categoryData.observe(viewLifecycleOwner) {
             it.forEach { vo ->
-                fragmentList.add(ArticleListFragment.create(vo.id,vo.name))
+                fragmentList.add(ArticleListFragment.create(vo.id, vo.name))
                 tabLabelList.add(vo.name ?: "unknown")
             }
             val articleAdapter = ArticleTabAdapter(

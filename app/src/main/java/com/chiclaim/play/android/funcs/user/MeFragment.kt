@@ -1,5 +1,6 @@
 package com.chiclaim.play.android.funcs.user
 
+import android.view.View
 import com.chiclaim.play.android.R
 import com.chiclaim.play.android.base.BaseBindingFragment
 import com.chiclaim.play.android.databinding.FragmentTabMeBinding
@@ -15,8 +16,8 @@ class MeFragment : BaseBindingFragment<FragmentTabMeBinding>() {
 
     override fun getLayoutId() = R.layout.fragment_tab_me
 
-    override fun init() {
-        super.init()
+    override fun init(view: View) {
+        super.init(view)
         homeViewModel = fragmentProvider.viewModel(MeViewModel::class.java)
 
         homeViewModel.text.observe(viewLifecycleOwner)  {

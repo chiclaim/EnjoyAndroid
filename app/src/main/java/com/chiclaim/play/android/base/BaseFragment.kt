@@ -42,7 +42,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     /**
      * 在 [onViewCreated] 方法中调用，可以做一些初始化操作
      */
-    open fun init() {}
+    open fun init(view: View) {}
 
 
     override fun onCreateView(
@@ -55,7 +55,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        init(view)
     }
 
 

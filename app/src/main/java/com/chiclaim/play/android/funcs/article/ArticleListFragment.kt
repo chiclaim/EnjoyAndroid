@@ -42,7 +42,8 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
         ArticleAdapter()
     }
 
-    override fun init() {
+    override fun init(view: View) {
+
 
         arguments?.let {
             categoryId = it.getInt("categoryId")
@@ -52,7 +53,9 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
 
 
         articleListViewModel = fragmentProvider.viewModel(ArticleListViewModel::class.java)
+        articleListViewModel.bindForFragment(this, view)
 
+        println("ArticleListFragment=====articleListViewModel:" + articleListViewModel.hashCode())
 
     }
 
@@ -94,7 +97,7 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
 
     override fun lazyLoad() {
         val contentData = getContentData()
-        if (getDestroyViewStateAndReset() && contentData?.isNotEmpty() == true) {
+        if (articleListViewModel.getReuseFlagAndReset() && contentData?.isNotEmpty() == true) {
             adapter.submitList(contentData)
         } else {
             articleListViewModel.fetchArticleList(ArticleListRO(0, categoryId))
