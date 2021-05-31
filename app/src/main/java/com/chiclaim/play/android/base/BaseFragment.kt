@@ -28,7 +28,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     }
 
     private var isLoaded = false
-    private var destroyViewState = false
 
     @LayoutRes
     abstract fun getLayoutId(): Int
@@ -70,14 +69,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         isLoaded = false
-        destroyViewState = true
     }
-
-    fun getDestroyViewStateAndReset(): Boolean {
-        val d = destroyViewState
-        destroyViewState = false
-        return d
-    }
-
 
 }
