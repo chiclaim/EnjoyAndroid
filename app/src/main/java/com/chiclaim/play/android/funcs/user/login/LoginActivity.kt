@@ -20,7 +20,7 @@ import kotlinx.coroutines.GlobalScope
 /**
  * 登录页面
  *
- * @author kumu@2dfire.com
+ * @author chiclaim@google.com
  */
 class LoginActivity : BaseActivity() {
 

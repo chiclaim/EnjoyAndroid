@@ -3,7 +3,7 @@ package com.chiclaim.play.android.bean.bo
 /**
  * 服务端返回的列表模板类
  *
- * @author kumu@2dfire.com
+ * @author chiclaim@google.com
  */
 class PageBO<T> {
 

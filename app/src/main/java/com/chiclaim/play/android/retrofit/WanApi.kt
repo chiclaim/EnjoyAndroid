@@ -8,7 +8,7 @@ import retrofit2.http.*
 /**
  * wanandroid.com open api
  *
- * @author kumu@2dfire.com
+ * @author chiclaim@google.com
  */
 interface WanApi {
 
