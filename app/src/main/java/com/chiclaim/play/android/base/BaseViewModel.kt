@@ -11,13 +11,13 @@ import androidx.lifecycle.ViewModel
 abstract class BaseViewModel : ViewModel() {
 
     companion object {
-        fun <T> postValue(liveData: LiveData<T>, data: T) {
+        fun <T> postValue(liveData: LiveData<T>, data: T?) {
             if (liveData is MutableLiveData)
                 liveData.postValue(data)
             else throw IllegalArgumentException("$liveData must be MutableLiveData")
         }
 
-        fun <T> setValue(liveData: LiveData<T>, data: T) {
+        fun <T> setValue(liveData: LiveData<T>, data: T?) {
             if (liveData is MutableLiveData)
                 liveData.value = (data)
             else throw IllegalArgumentException("$liveData must be MutableLiveData")
@@ -26,6 +26,10 @@ abstract class BaseViewModel : ViewModel() {
 
     fun <T> createLiveData(): LiveData<T> {
         return MutableLiveData()
+    }
+
+    fun <T> createLiveData(data: T): LiveData<T> {
+        return MutableLiveData(data)
     }
 
 
