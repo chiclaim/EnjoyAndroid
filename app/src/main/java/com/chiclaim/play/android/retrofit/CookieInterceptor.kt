@@ -28,7 +28,10 @@ class CookieInterceptor : Interceptor {
             if (response.headers(KEY_SET_COOKIE).isNotEmpty()) {
                 val cookies = response.headers(KEY_SET_COOKIE)
                 val cookieStr = encodeCookie(cookies)
-                LightStore.putString(KEY_LOGIN_COOKIE, cookieStr)
+                // loginUserName/token_pass/....
+                if (cookieStr.contains("loginUserName")) {
+                    LightStore.putString(KEY_LOGIN_COOKIE, cookieStr)
+                }
             }
             return response
         } else {
