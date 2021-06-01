@@ -11,6 +11,10 @@ android {
     buildFeatures {
         dataBinding true
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -20,6 +24,8 @@ dependencies {
     implementation rootProject.ext.dependencies.googleMaterial
     implementation rootProject.ext.dependencies.constraintlayout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
 
     // kotlin
     implementation rootProject.ext.dependencies.kotlinStdlib
@@ -35,12 +41,12 @@ dependencies {
 
     // store
     implementation rootProject.ext.dependencies.mmkv
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+
 
 
     // test
     testImplementation rootProject.ext.dependencies.junit
+    testImplementation "org.mockito:mockito-core:2.25.0"
     androidTestImplementation rootProject.ext.dependencies.extJunit
     androidTestImplementation rootProject.ext.dependencies.espressoCore
 }

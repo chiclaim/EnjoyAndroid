@@ -6,14 +6,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.chiclaim.play.android.R
-import com.chiclaim.play.android.base.BaseBindingFragment
+import com.chiclaim.play.android.base.BaseViewModelFragment
 import com.chiclaim.play.android.databinding.FragmentHomeBinding
 import com.chiclaim.play.android.exception.codeMessage
 import com.chiclaim.play.android.utils.ToastUtil
 
-class ArticleFragment : BaseBindingFragment<FragmentHomeBinding>() {
-
-    private lateinit var homeViewModel: ArticleViewModel
+class ArticleFragment : BaseViewModelFragment<FragmentHomeBinding, ArticleViewModel>() {
 
     private val fragmentList: MutableList<Fragment> by lazy {
         arrayListOf()
@@ -25,15 +23,12 @@ class ArticleFragment : BaseBindingFragment<FragmentHomeBinding>() {
 
     override fun getLayoutId() = R.layout.fragment_home
 
+    override fun viewModelClass() = ArticleViewModel::class.java
+
 
     override fun init(view: View, savedInstanceState: Bundle?) {
         super.init(view, savedInstanceState)
-
-        homeViewModel = fragmentProvider.viewModel(ArticleViewModel::class.java)
-
-        homeViewModel.bindForFragment(this, view)
-
-        homeViewModel.categoryData.observe(viewLifecycleOwner) {
+        viewModel.categoryData.observe(viewLifecycleOwner) {
             it.forEach { vo ->
                 fragmentList.add(ArticleListFragment.create(vo.id, vo.name))
                 tabLabelList.add(vo.name ?: "unknown")
@@ -46,7 +41,7 @@ class ArticleFragment : BaseBindingFragment<FragmentHomeBinding>() {
             requireDataBinding().tabLayout.setupWithViewPager(requireDataBinding().viewPager)
         }
 
-        homeViewModel.categoryDataError.observe(viewLifecycleOwner) {
+        viewModel.categoryDataError.observe(viewLifecycleOwner) {
             ToastUtil.showShort(requireContext(), it.codeMessage())
         }
 
@@ -69,8 +64,10 @@ class ArticleFragment : BaseBindingFragment<FragmentHomeBinding>() {
 
     }
 
-    override fun lazyLoad() {
-        homeViewModel.fetchArticleCategories()
+    override fun requestData() {
+        super.requestData()
+        viewModel.fetchArticleCategories()
+
     }
 
 

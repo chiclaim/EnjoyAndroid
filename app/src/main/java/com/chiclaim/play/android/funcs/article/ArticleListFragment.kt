@@ -19,7 +19,7 @@ import com.chiclaim.play.android.utils.ToastUtil
  * 文章列表
  * @author by chiclaim@google.com
  */
-class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
+class ArticleListFragment : BaseListFragment<FragmentArticleListBinding, ArticleListViewModel>() {
 
     companion object {
         fun create(categoryId: Int, categoryName: String?): ArticleListFragment {
@@ -32,8 +32,6 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
         }
     }
 
-    private lateinit var articleListViewModel: ArticleListViewModel
-
     private var categoryId: Int = -1
     private var categoryName: String? = null
 
@@ -42,25 +40,19 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
         ArticleAdapter()
     }
 
+    override fun getLayoutId() = R.layout.fragment_article_list
+
+    override fun viewModelClass(): Class<ArticleListViewModel> = ArticleListViewModel::class.java
+
+
     override fun init(view: View, savedInstanceState: Bundle?) {
-
-
+        super.init(view, savedInstanceState)
         arguments?.let {
             categoryId = it.getInt("categoryId")
             categoryName = it.getString("categoryName")
         }
         Log.e("ArticleListFragment", "init $categoryName---${hashCode()}")
 
-
-        articleListViewModel = fragmentProvider.viewModel(ArticleListViewModel::class.java)
-        articleListViewModel.bindForFragment(this, view)
-
-        println("ArticleListFragment=====articleListViewModel:" + articleListViewModel.hashCode())
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         requireDataBinding().recycleView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(requireContext())
@@ -69,17 +61,15 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
         requireDataBinding().recycleView.adapter = adapter
         adapter.submitList(emptyList())
 
-        articleListViewModel.articleListLiveData.observe(viewLifecycleOwner) {
+        viewModel.articleListLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
-        articleListViewModel.articleListFailedLiveData.observe(viewLifecycleOwner) {
+        viewModel.articleListFailedLiveData.observe(viewLifecycleOwner) {
             ToastUtil.showShort(requireContext(), it.codeMessage())
         }
+
     }
-
-
-    override fun getLayoutId() = R.layout.fragment_article_list
 
     override fun onResume() {
         super.onResume()
@@ -92,17 +82,12 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding>() {
     }
 
     private fun getContentData(): List<ArticleVO>? {
-        return articleListViewModel.articleListLiveData.value
+        return viewModel.articleListLiveData.value
     }
 
-    override fun lazyLoad() {
-        val contentData = getContentData()
-        if (articleListViewModel.reuseDataFlagAndReset() && contentData?.isNotEmpty() == true) {
-            adapter.submitList(contentData)
-        } else {
-            articleListViewModel.fetchArticleList(ArticleListRO(0, categoryId))
-        }
+    override fun requestData() {
+        super.requestData()
+        viewModel.fetchArticleList(ArticleListRO(0, categoryId))
     }
-
 
 }

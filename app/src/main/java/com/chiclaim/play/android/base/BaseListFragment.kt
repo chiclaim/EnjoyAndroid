@@ -7,5 +7,6 @@ import androidx.databinding.ViewDataBinding
  *
  * @author by chiclaim@google.com
  */
-abstract class BaseListFragment<T : ViewDataBinding> : BaseBindingFragment<T>() {
+abstract class BaseListFragment<T : ViewDataBinding, VM : BaseViewModel> :
+    BaseViewModelFragment<T, VM>() {
 }
