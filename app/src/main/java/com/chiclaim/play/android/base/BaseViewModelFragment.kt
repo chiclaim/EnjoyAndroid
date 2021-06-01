@@ -32,4 +32,19 @@ abstract class BaseViewModelFragment<T : ViewDataBinding, VM : BaseViewModel> :
         }
     }
 
+    private var resumed = false
+
+    override fun onResume() {
+        super.onResume()
+        resumed = true
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // ViewPager 默认会初始化当前展示的和其相邻的 Fragment，发生重建的话，会导致相邻的 Fragment bindForFragment 调用多次
+        // reuseDataFlagAndReset 会认为可以重用数据，但实际上该 Fragment 是第一次展示
+        // 解决：如果 onResume 没有被回调过，在 onDestroyView 中重置 ViewModel 对应的版本
+        if (!resumed) viewModel.resetBindVersion()
+    }
+
 }
