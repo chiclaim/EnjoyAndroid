@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabGravity="fill"
+            app:tabGravity="center"
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabIndicatorFullWidth="false"
             app:tabMaxWidth="0dp"

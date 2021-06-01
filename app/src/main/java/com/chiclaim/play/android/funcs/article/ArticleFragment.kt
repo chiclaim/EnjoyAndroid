@@ -7,11 +7,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.chiclaim.play.android.R
 import com.chiclaim.play.android.base.BaseViewModelFragment
-import com.chiclaim.play.android.databinding.FragmentHomeBinding
+import com.chiclaim.play.android.databinding.FragmentArticleBinding
 import com.chiclaim.play.android.exception.codeMessage
 import com.chiclaim.play.android.utils.ToastUtil
 
-class ArticleFragment : BaseViewModelFragment<FragmentHomeBinding, ArticleViewModel>() {
+class ArticleFragment : BaseViewModelFragment<FragmentArticleBinding, ArticleViewModel>() {
 
     private val fragmentList: MutableList<Fragment> by lazy {
         arrayListOf()
@@ -21,7 +21,7 @@ class ArticleFragment : BaseViewModelFragment<FragmentHomeBinding, ArticleViewMo
         arrayListOf()
     }
 
-    override fun getLayoutId() = R.layout.fragment_home
+    override fun getLayoutId() = R.layout.fragment_article
 
     override fun viewModelClass() = ArticleViewModel::class.java
 
