@@ -64,8 +64,8 @@ class ArticleFragment : BaseViewModelFragment<FragmentArticleBinding, ArticleVie
 
     }
 
-    override fun requestData() {
-        super.requestData()
+    override fun loadData() {
+        super.loadData()
         viewModel.fetchArticleCategories()
 
     }

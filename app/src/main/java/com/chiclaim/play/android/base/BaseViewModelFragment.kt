@@ -28,18 +28,8 @@ abstract class BaseViewModelFragment<T : ViewDataBinding, VM : BaseViewModel> :
 
     override fun lazyLoad() {
         if (!viewModel.reuseDataFlagAndReset()) {
-            requestData()
+            loadData()
         }
     }
-
-    /**
-     * 当 [BaseViewModel.reuseDataFlagAndReset] 为 false 才会被调用，避免数据的重复请求
-     *
-     * @see lazyLoad
-     */
-    open fun requestData() {
-
-    }
-
 
 }

@@ -85,8 +85,8 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding, Article
         return viewModel.articleListLiveData.value
     }
 
-    override fun requestData() {
-        super.requestData()
+    override fun loadData() {
+        super.loadData()
         viewModel.fetchArticleList(ArticleListRO(0, categoryId))
     }
 

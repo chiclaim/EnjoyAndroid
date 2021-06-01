@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
  *
  * @author chiclaim@google.com
  */
-abstract class BaseActivity : AppCompatActivity(), ILayout {
+abstract class BaseActivity : AppCompatActivity(), ILayout, ILoad {
+
+    private var isLoaded = false
 
     val activityProvider: ScopeViewModel.ActivityViewModelProvider by lazy {
         ScopeViewModel.ActivityViewModelProvider(this)
@@ -33,6 +35,21 @@ abstract class BaseActivity : AppCompatActivity(), ILayout {
 
     open fun initContentView() {
         setContentView(getLayoutId())
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        if (!isLoaded) {
+            isLoaded = true
+            lazyLoad()
+        }
+    }
+
+    override fun lazyLoad() {
+    }
+
+    override fun loadData() {
     }
 
 }

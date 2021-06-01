@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
  *
  * @author by chiclaim@google.com
  */
-abstract class BaseFragment<T : ViewDataBinding> : Fragment(), ILayout {
+abstract class BaseFragment<T : ViewDataBinding> : Fragment(), ILayout, ILoad {
 
     val fragmentProvider: ScopeViewModel.FragmentViewModelProvider by lazy {
         ScopeViewModel.FragmentViewModelProvider(this)
@@ -31,7 +31,18 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(), ILayout {
     /**
      * 延迟加载数据。当 Fragment onResume 时候才会调用，可以在此方法中进行网络请求等操作
      */
-    abstract fun lazyLoad()
+    override fun lazyLoad(){
+
+    }
+
+    /**
+     * 当 [BaseViewModel.reuseDataFlagAndReset] 为 false 才会被调用，避免数据的重复请求
+     *
+     * @see lazyLoad
+     */
+    override fun loadData() {
+
+    }
 
 
     /**
