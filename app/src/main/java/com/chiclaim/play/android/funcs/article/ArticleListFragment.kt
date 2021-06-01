@@ -81,10 +81,6 @@ class ArticleListFragment : BaseListFragment<FragmentArticleListBinding, Article
         Log.e("ArticleListFragment", "onDestroyView $categoryName---${hashCode()}")
     }
 
-    private fun getContentData(): List<ArticleVO>? {
-        return viewModel.articleListLiveData.value
-    }
-
     override fun loadData() {
         super.loadData()
         viewModel.fetchArticleList(ArticleListRO(0, categoryId))

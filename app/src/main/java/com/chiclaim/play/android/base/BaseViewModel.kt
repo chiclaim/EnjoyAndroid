@@ -27,8 +27,8 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    private var pageStamp: Int = -1
-    private var viewStamp: Int = -1
+    private var pageVersion: Int = -1
+    private var viewVersion: Int = -1
 
     private var reuseData = false
 
@@ -52,17 +52,17 @@ abstract class BaseViewModel : ViewModel() {
         val viewCode = view.hashCode()
 
         // 对应的页面发生了重建
-        if (pageStamp != -1 && pageStamp != fragmentCode) {
+        if (pageVersion != -1 && pageVersion != fragmentCode) {
             reuseData = true
         }
 
         // 对应页面的 View 发生了重建
-        if (viewStamp != -1 && viewStamp != viewCode) {
+        if (viewVersion != -1 && viewVersion != viewCode) {
             reuseData = true
         }
 
-        pageStamp = fragmentCode
-        viewStamp = viewCode
+        pageVersion = fragmentCode
+        viewVersion = viewCode
     }
 
     /**
@@ -86,10 +86,10 @@ abstract class BaseViewModel : ViewModel() {
     fun bindForActivity(activity: Activity) {
         val activityCode = activity.hashCode()
         // 对应的页面发生了重建
-        if (pageStamp != -1 && pageStamp != activityCode) {
+        if (pageVersion != -1 && pageVersion != activityCode) {
             reuseData = true
         }
-        pageStamp = activityCode
+        pageVersion = activityCode
     }
 
     /**
@@ -107,11 +107,17 @@ abstract class BaseViewModel : ViewModel() {
      * ```
      */
     fun reuseDataFlagAndReset(): Boolean {
-        if (pageStamp == -1 && viewStamp == -1)
+        if (pageVersion == -1 && viewVersion == -1)
             throw IllegalStateException("invoke bindForFragment() or bindForActivity() first")
         val tmp = reuseData
         reuseData = false
         return tmp
+    }
+
+    fun resetBindVersion(){
+        pageVersion = -1
+        viewVersion = -1
+        reuseData = false
     }
 
     fun <T> createLiveData(): LiveData<T> {
