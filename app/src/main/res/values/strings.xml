@@ -10,7 +10,6 @@
     <string name="net_err_parse">数据解析异常</string>
 
 
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -31,7 +30,10 @@
     <string name="desc1">desc1</string>
     <string name="article_time_author">%1$s • %2$s</string>
 
+    <string name="require_username">用户名不能为空</string>
+    <string name="require_password">密码不能为空</string>
 
+    <string name="digit_alphabet_numbers">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@</string>
 
 
 </resources>

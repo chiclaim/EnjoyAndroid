@@ -29,11 +29,13 @@ object ToastUtil {
 
     private fun show(context: Context, strId: Int, duration: Int) {
         if (toast == null) toast = Toast.makeText(context, strId, duration)
+        toast?.setText(strId)
         toast?.show()
     }
 
     private fun show(context: Context, msg: CharSequence, duration: Int) {
         if (toast == null) toast = Toast.makeText(context, msg, duration)
+        toast?.setText(msg)
         toast?.show()
     }
 
