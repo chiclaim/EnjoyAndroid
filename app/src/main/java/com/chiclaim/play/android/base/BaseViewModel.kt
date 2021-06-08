@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
- *
+ * ViewModel 基类封装
  * @author by chiclaim@google.com
  */
 abstract class BaseViewModel : ViewModel() {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 
 /**
+ * 在 Activity 中封装 ViewModel 相关操作
  *
  * @author by chiclaim@google.com
  */
