@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
  *
  * @author chiclaim@google.com
  */
-abstract class BaseActivity : AppCompatActivity(), ILayout, ILoad {
+abstract class BaseActivity : AppCompatActivity(), IPage.ILayout, IPage.ILoad {
 
     private var isLoaded = false
 

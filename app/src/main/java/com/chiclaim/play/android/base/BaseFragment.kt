@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
  *
  * @author by chiclaim@google.com
  */
-abstract class BaseFragment<T : ViewDataBinding> : Fragment(), ILayout, ILoad {
+abstract class BaseFragment<T : ViewDataBinding> : Fragment(), IPage.ILayout, IPage.ILoad {
 
     val fragmentProvider: ScopeViewModel.FragmentViewModelProvider by lazy {
         ScopeViewModel.FragmentViewModelProvider(this)
