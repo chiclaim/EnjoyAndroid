@@ -1,5 +1,8 @@
 # PlayAndroid
 
+基于 [wanandroid.com](wanandroid.com) open api 开发的 Android 客户端
+
+
 ## 脚手架
 
 ### RecyclerView 封装
